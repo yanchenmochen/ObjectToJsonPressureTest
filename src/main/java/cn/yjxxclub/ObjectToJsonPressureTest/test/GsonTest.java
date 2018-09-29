@@ -3,9 +3,9 @@ package cn.yjxxclub.ObjectToJsonPressureTest.test;
 import cn.yjxxclub.ObjectToJsonPressureTest.Common;
 import cn.yjxxclub.ObjectToJsonPressureTest.entity.Book;
 import cn.yjxxclub.ObjectToJsonPressureTest.util.DateUtil;
-import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
+import com.google.gson.*;
 
+import java.lang.reflect.Type;
 import java.util.Date;
 
 /**
@@ -27,10 +27,19 @@ public class GsonTest {
         String str = "{\"createDate\":1498616533082,\"id\":1,\"name\":\"aa\",\"price\":22.1,\"publish\":false}";
 
         long times = Common.TEST_TIMES;
-        Gson gson = new Gson();
+
+        GsonBuilder builder = new GsonBuilder();
+
+        builder.registerTypeAdapter(Date.class, new com.google.gson.JsonDeserializer() {
+            public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException{
+                return new Date(json.getAsJsonPrimitive().getAsLong());
+            }
+        });
+        Gson gson = builder.create();
         for (int i =0;i<12;i++){
             Date date = new Date();
-            serialize(gson,book,times);
+            //serialize(gson,book,times);
+            deserialize(gson,str,times);
             logTime(DateUtil.totalTime(date));
         }
        // deserialize(gson,str,times);

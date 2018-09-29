@@ -29,7 +29,8 @@ public class JacksonTest {
         ObjectMapper objectMapper =new ObjectMapper();
         for (int i =0;i<12;i++){
             Date date = new Date();
-            serialize(objectMapper,book,times);
+            //serialize(objectMapper,book,times);
+            deserialize(objectMapper,str,times);
             logTime(DateUtil.totalTime(date));
         }
     //    deserialize(objectMapper,str,times);

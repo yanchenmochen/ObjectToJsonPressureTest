@@ -25,8 +25,8 @@ public class DateUtil {
         return format.format(date);
     }
 
-    public static String totalTime(Date old){
+    public static long totalTime(Date old){
         Date now = new Date();
-        return getformat(new Date(now.getTime()-old.getTime()));
+        return now.getTime()-old.getTime();
     }
 }
